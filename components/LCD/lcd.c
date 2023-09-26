@@ -94,7 +94,7 @@ void Init_LCD(uint16_t color)
 	gpio_set_level(PIN_NUM_BCKL, 1);
 
 	uint32_t lcd_id = LCD_Get_ID();
-	printf("LCD ID: %08X\n", lcd_id);
+	printf("LCD ID: %08lX\n", lcd_id);
 
 	printf("LCD ILI9341 initialization.\n");
 
