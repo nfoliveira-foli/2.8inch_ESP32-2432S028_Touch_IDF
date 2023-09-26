@@ -3,7 +3,7 @@
 #include "freertos/task.h"
 #include "stdint.h"
 #include "stdbool.h"
-#include "../LCD/include/lcd.h"
+#include "lcd.h"
 #include "gui.h"
 #include "font.h"
 #include "math.h"  
