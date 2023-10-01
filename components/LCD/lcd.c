@@ -88,13 +88,13 @@ void Init_LCD(uint16_t color)
 
 	// Reset the display
 	//gpio_set_level(PIN_NUM_RST, 0);
-	//vTaskDelay(100 / portTICK_RATE_MS);
+	//vTaskDelay(pdMS_TO_TICKS(100));
 	//gpio_set_level(PIN_NUM_RST, 1);
-	//vTaskDelay(100 / portTICK_RATE_MS);
+	//vTaskDelay(pdMS_TO_TICKS(100));
 	gpio_set_level(PIN_NUM_BCKL, 1);
 
 	uint32_t lcd_id = LCD_Get_ID();
-	printf("LCD ID: %08X\n", lcd_id);
+	printf("LCD ID: %08lX\n", lcd_id);
 
 	printf("LCD ILI9341 initialization.\n");
 
@@ -103,7 +103,7 @@ void Init_LCD(uint16_t color)
 		LCD_WriteCMD(ili_init_cmds[cmd].cmd);
 		LCD_WriteDate(ili_init_cmds[cmd].data, ili_init_cmds[cmd].databytes&0x1F);
 		if (ili_init_cmds[cmd].databytes&0x80) {
-			vTaskDelay(100 / portTICK_RATE_MS);
+			vTaskDelay(pdMS_TO_TICKS(100));
 		}
 		cmd++;
 	}

@@ -56,11 +56,11 @@ void xpt2046_init(void)
         .intr_type = GPIO_INTR_DISABLE,
     };
     ret = gpio_config(&miso_config);
-    gpio_pad_select_gpio(XPT2046_MOSI);
+    esp_rom_gpio_pad_select_gpio(XPT2046_MOSI);
     gpio_set_direction(XPT2046_MOSI, GPIO_MODE_OUTPUT);// 设置GPIO为推挽输出模式
-    gpio_pad_select_gpio(XPT2046_CLK);
+    esp_rom_gpio_pad_select_gpio(XPT2046_CLK);
     gpio_set_direction(XPT2046_CLK, GPIO_MODE_OUTPUT);// 设置GPIO为推挽输出模式
-    gpio_pad_select_gpio(XPT2046_CS);
+    esp_rom_gpio_pad_select_gpio(XPT2046_CS);
     gpio_set_direction(XPT2046_CS, GPIO_MODE_OUTPUT);// 设置GPIO为推挽输出模式
     
     printf("%s->XPT2046 Initialization\n",TAG);
@@ -177,9 +177,9 @@ uint16_t xpt2046_gpio_spi_read_reg(uint8_t reg)
 	gpio_set_level(XPT2046_MOSI, 0); 	// 拉低数据线
 	gpio_set_level(XPT2046_CS, 0); 		// 选中触摸屏IC
 	xpt2046_gpio_Write_Byte(reg);		// 发送命令字
-	ets_delay_us(6);					// ADS7846的转换时间最长为6us
+	esp_rom_delay_us(6);					// ADS7846的转换时间最长为6us
 	gpio_set_level(XPT2046_CLK, 0);
-	ets_delay_us(1);
+	esp_rom_delay_us(1);
 	gpio_set_level(XPT2046_CLK, 1);		// 给1个时钟，清除BUSY
 	gpio_set_level(XPT2046_CLK, 0);
 	for(count=0;count<16;count++){		// 读出16位数据,只有高12位有效
